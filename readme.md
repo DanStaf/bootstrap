@@ -83,3 +83,25 @@ test: python manage.py runserver
   - результат отображения фильтровать по категории,
   - осуществлять поиск по названию и полю описания.
 (admin.py)
+
+### Задание 6
+1) shell 
+- библиотека ipython для комфортной работы с shell,
+- заполните список категорий - Model.objects.create(name="...")
+- выберите список категорий, применив произвольные рассмотренные фильтры (приложить скриншот).
+- Model.objects.filter(name="...")
+- Model.objects.get(name="...")
+- all()
+- exclude()
+
+2) фикстуры для заполнения базы данных
+
+python -Xutf8 manage.py dumpdata catalog > fixtures/catalog_data.json
+
+python -Xutf8 manage.py loaddata fixtures/catalog_data.json
+
+3) команда для заполнения базы данных
+
+catalog / management / commands / fill.py
+
+python manage.py fill
