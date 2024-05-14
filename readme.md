@@ -49,3 +49,22 @@ test: python manage.py runserver
 (templates + form) - уже написано
 
 
+## 19.3
+
+### Задание 1
+Подключите СУБД PostgreSQL для работы в проекте, для этого:
+- Создайте базу данных в ручном режиме. (PGAdmin)
+- Внесите изменения в настройки подключения. (psycopg2 + settings.py)
+
+### Задание 2
+В приложении каталога создайте модели:
+- Product,
+- Category.
+Опишите для них начальные настройки (__str__, class Meta).
+
+### Задание 3
+Заполнить поля
+- для ImageField обновляем settings и urls, установить Pillow
+- для дат - стандарт created_at, updated_at
+- для ссылки ForeignKey
+
