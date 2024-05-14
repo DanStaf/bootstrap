@@ -24,7 +24,7 @@ class Product(models.Model):
     order_price = models.IntegerField(verbose_name='Цена за покупку')
     created_at = models.DateTimeField(verbose_name='Дата создания')
     updated_at = models.DateTimeField(verbose_name='Дата последнего изменения')
-    manufactured_at = models.DateTimeField(null=True, verbose_name='Дата производства продукта')
+    # manufactured_at = models.DateTimeField(null=True, verbose_name='Дата производства продукта')
 
     def __str__(self):
         # Строковое отображение объекта
