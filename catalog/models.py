@@ -35,4 +35,15 @@ class Product(models.Model):
         verbose_name_plural = 'продукты'
 
 
+class Contact(models.Model):
+    first_name = models.CharField(max_length=150, verbose_name='имя')
+    last_name = models.CharField(max_length=150, verbose_name='фамилия')
+
+    def __str__(self):
+        # Строковое отображение объекта
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        verbose_name = 'контакт'
+        verbose_name_plural = 'контакты'
 
