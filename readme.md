@@ -68,3 +68,11 @@ test: python manage.py runserver
 - для дат - стандарт created_at, updated_at
 - для ссылки ForeignKey
 
+### Задание 4
+1) makemigrations + migrate 
+2) внесите изменения в модель продукта, добавьте поле «Дата производства продукта»
+(manufactured_at), makemigrations + migrate 
+3) откатите миграцию до состояния, когда поле «Дата производства продукта»
+(manufactured_at) для модели продукта еще не существовало, и удалите лишнюю миграцию.
++
+
