@@ -31,7 +31,7 @@ class Command(BaseCommand):
 
         products_data = [
             {'name': 'Яблоки', 'description': 'Красные', 'order_price': 100, 'category': Category.objects.get(name='Фрукты'),
-             'created_at': date_of_creation, 'updated_at': date_of_creation},
+             'created_at': date_of_creation, 'updated_at': date_of_creation, 'photo': 'apples.jpg'},
             {'name': 'Апельсины', 'description': 'Марокко', 'order_price': 150,
              'created_at': date_of_creation, 'updated_at': date_of_creation},
             {'name': 'Бананы', 'description': 'Африка', 'order_price': 120,
