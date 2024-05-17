@@ -1,4 +1,7 @@
 {% extends 'catalog/base.html' %}
+
+{% load catalog_tags %}
+
 {% block content %}
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -21,7 +24,11 @@
                         </tr>
                         <tr>
                             <td class="w-25">Изображение (превью)</td>
-                            <td>{{product.photo}}</td>
+                            <td>
+                                <img class="card-img-top"
+                                     src="{% my_media product.photo %}"
+                                >
+                            </td>
                         </tr>
                         <tr>
                             <td class="w-25">Категория</td>

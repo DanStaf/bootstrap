@@ -23,8 +23,8 @@ def contacts(request):
         name = request.POST.get('name')
         print('INPUT DATA: ', name)
 
-    one_contact = Contact.objects.all()[0]
-    data = {"first_name": one_contact.first_name, "last_name": one_contact.last_name}
+    our_contacts = Contact.objects.all()
+    data = {"our_contacts": our_contacts}
 
     return render(request, 'catalog/contacts.html', context=data)
 
