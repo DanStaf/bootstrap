@@ -11,7 +11,10 @@ def home(request):
 
     #[print(item.pk) for item in Product.objects.all()]
 
-    return render(request, 'catalog/home.html')
+    data = {"objects": list_of_products}
+
+
+    return render(request, 'catalog/home.html', context=data)
 
 
 def contacts(request):
