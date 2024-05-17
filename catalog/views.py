@@ -6,12 +6,12 @@ from catalog.models import Product, Contact
 
 def home(request):
     list_of_products = Product.objects.all()
-
     a = 5 if len(list_of_products) >= 5 else len(list_of_products)
-
     [print(item) for item in list_of_products[:a]]
 
-    return render(request, 'home.html')
+    #[print(item.pk) for item in Product.objects.all()]
+
+    return render(request, 'catalog/home.html')
 
 
 def contacts(request):
@@ -23,6 +23,12 @@ def contacts(request):
     one_contact = Contact.objects.all()[0]
     data = {"first_name": one_contact.first_name, "last_name": one_contact.last_name}
 
-    return render(request, 'contacts.html', context=data)
+    return render(request, 'catalog/contacts.html', context=data)
 
+
+def product(request, pk):
+
+    data = {"product": Product.objects.get(pk=pk)}  # PrimaryKey (= 19, 20 ... 24)
+
+    return render(request, 'catalog/product.html', context=data)
 
