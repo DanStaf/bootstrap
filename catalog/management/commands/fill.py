@@ -2,6 +2,7 @@ from django.core.management import BaseCommand
 from catalog.models import Category, Product
 from datetime import datetime
 
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -17,7 +18,7 @@ class Command(BaseCommand):
 
         Category.objects.bulk_create([Category(**item) for item in categories_data])
 
-        #for item in categories_data:
+        # for item in categories_data:
         #    Category.objects.create(**item)
 
         """data_list = []
@@ -30,7 +31,8 @@ class Command(BaseCommand):
         date_of_creation = datetime.now()
 
         products_data = [
-            {'name': 'Яблоки', 'description': 'Красные', 'order_price': 100, 'category': Category.objects.get(name='Фрукты'),
+            {'name': 'Яблоки', 'description': 'Красные', 'order_price': 100,
+             'category': Category.objects.get(name='Фрукты'),
              'created_at': date_of_creation, 'updated_at': date_of_creation, 'photo': 'apples.jpg'},
             {'name': 'Апельсины', 'description': 'Марокко', 'order_price': 150,
              'created_at': date_of_creation, 'updated_at': date_of_creation},

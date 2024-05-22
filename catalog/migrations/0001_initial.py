@@ -34,7 +34,8 @@ class Migration(migrations.Migration):
                 ('order_price', models.IntegerField(verbose_name='Цена за покупку')),
                 ('created_at', models.DateTimeField(verbose_name='Дата создания')),
                 ('updated_at', models.DateTimeField(verbose_name='Дата последнего изменения')),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='catalog.category', verbose_name='Категория')),
+                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                               to='catalog.category', verbose_name='Категория')),
             ],
             options={
                 'verbose_name': 'продукт',

@@ -25,4 +25,3 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name',)
-
