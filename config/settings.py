@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'catalog', # Название БД
-        'USER': 'postgres', # Пользователь для подключения
-        'PASSWORD': 'admin', # Пароль для этого пользователя
-        'HOST': 'localhost', # Адрес, на котором развернут сервер БД
-        'PORT': 5432, # Порт, на котором работает сервер БД
+        'NAME': 'catalog',  # Название БД
+        'USER': 'postgres',  # Пользователь для подключения
+        'PASSWORD': 'admin',  # Пароль для этого пользователя
+        'HOST': 'localhost',  # Адрес, на котором развернут сервер БД
+        'PORT': 5432,  # Порт, на котором работает сервер БД
     }
 }
 
@@ -123,9 +123,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+# STATICFILES_DIRS = (
+#     BASE_DIR / 'static',
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
