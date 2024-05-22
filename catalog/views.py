@@ -1,4 +1,6 @@
+import django.core.exceptions
 from django.shortcuts import render
+# import catalog.models
 from catalog.models import Product, Contact
 
 # Create your views here.
@@ -30,6 +32,19 @@ def contacts(request):
 
 def product(request, pk):
 
-    data = {"product": Product.objects.get(pk=pk)}  # PrimaryKey (= 19, 20 ... 24)
+    product = get_object_or_None(Product, pk)  # PrimaryKey (= 19, 20 ... 24)
 
-    return render(request, 'catalog/product.html', context=data)
+    if product is None:
+        return render(request, 'catalog/404.html')
+    else:
+
+        data = {"product": product}
+        return render(request, 'catalog/product.html', context=data)
+
+
+def get_object_or_None(My_Model, pk):
+
+    try:
+        return My_Model.objects.get(pk=pk)
+    except django.core.exceptions.ObjectDoesNotExist:
+        return None
