@@ -1,8 +1,11 @@
 {% extends 'catalog/base.html' %}
+
+{% load catalog_tags %}
+
 {% block content %}
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Контакты</h1>
+    <h1 class="display-4">Продукт: {{ object.name }}</h1>
 </div>
 
 <div class="container">
@@ -12,32 +15,37 @@
                 <div class="card-body">
                     <table class="table table-striped">
                         <tr>
-                            <td class="w-25">Страна</td>
-                            <td>USA</td>
+                            <td class="w-25">Название</td>
+                            <td>{{object.name}}</td>
                         </tr>
                         <tr>
-                            <td class="w-25">ИНН</td>
-                            <td>91-1144442</td>
+                            <td class="w-25">Описание</td>
+                            <td>{{object.description}}</td>
                         </tr>
                         <tr>
-                            <td class="w-25">Адрес</td>
-                            <td>Redmond,WA,98052-6399</td>
+                            <td class="w-25">Изображение (превью)</td>
+                            <td>
+                                <img class="card-img-top"
+                                     src="{% my_media object.photo %}"
+                                >
+                            </td>
                         </tr>
-                    </table>
-                </div>
-                <br>
-                <div class="card-body">
-                    <table class="table table-striped">
                         <tr>
-                            <td class="w-25">Имя</td>
-                            <td>Фамилия</td>
+                            <td class="w-25">Категория</td>
+                            <td>{{object.category}}</td>
                         </tr>
-                        {% for contact in our_contacts%}
                         <tr>
-                            <td class="w-25">{{ contact.first_name }}</td>
-                            <td>{{ contact.last_name }}</td>
+                            <td class="w-25">Цена за покупку</td>
+                            <td>{{object.order_price}}</td>
                         </tr>
-                        {% endfor %}
+                        <tr>
+                            <td class="w-25">Дата создания</td>
+                            <td>{{object.created_at}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Дата последнего изменения</td>
+                            <td>{{object.updated_at}}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
