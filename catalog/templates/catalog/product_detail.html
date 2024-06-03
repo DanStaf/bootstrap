@@ -1,0 +1,60 @@
+{% extends 'catalog/base.html' %}
+
+{% load catalog_tags %}
+
+{% block content %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Продукт: {{ object.name }}</h1>
+</div>
+
+<div class="container">
+    <div class="row text-start">
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="w-25">Название</td>
+                            <td>{{object.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Описание</td>
+                            <td>{{object.description}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Изображение (превью)</td>
+                            <td>
+                                <img class="card-img-top"
+                                     src="{% my_media object.photo %}"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Категория</td>
+                            <td>{{object.category}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Цена за покупку</td>
+                            <td>{{object.order_price}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Дата создания</td>
+                            <td>{{object.created_at}}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Дата последнего изменения</td>
+                            <td>{{object.updated_at}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% include 'catalog/inc_contact_us.html' %}
+
+    </div>
+
+    {% include 'catalog/inc_footer.html' %}
+</div>
+
+{% endblock %}
