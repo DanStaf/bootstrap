@@ -1,9 +1,10 @@
 import django.core.exceptions
 from django.shortcuts import render
 # import catalog.models
-from catalog.models import Product, Contact
+from catalog.models import Product, Contact, Article
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -63,5 +64,30 @@ def get_object_or_None(My_Model, pk):
     except django.core.exceptions.ObjectDoesNotExist:
         return None
 """
+
+
+class ArticleListView(ListView):
+    model = Article
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+
+
+class ArticleCreateView(CreateView):
+    model = Article
+    fields = ('title', 'content', 'photo',)
+    success_url = reverse_lazy('catalog:blog')
+
+
+class ArticleUpdateView(UpdateView):
+    model = Article
+    fields = ('title', 'content', 'photo',)
+    success_url = reverse_lazy('catalog:blog')
+
+
+class ArticleDeleteView(DeleteView):
+    model = Article
+    success_url = reverse_lazy('catalog:blog')
 
 ###########
