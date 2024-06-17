@@ -20,6 +20,14 @@
                         <a href="/product/{{ object.id }}">{{ object.name }}</a>
                     </h4>
 
+                    {% for version in object.version_set.all %}
+                        {% if version.product == object and version.version_is_active == True %}
+                            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                                <li>Версия: {{ version.version_number }}</li>
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ object.order_price }} РУБ.</h1>

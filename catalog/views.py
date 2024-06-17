@@ -1,7 +1,7 @@
 import django.core.exceptions
 from django.shortcuts import render
 # import catalog.models
-from catalog.models import Product, Contact, Article
+from catalog.models import Product, Contact, Article, Version
 from catalog.forms import ProductForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
