@@ -149,3 +149,11 @@ python manage.py fill
 
 
 
+## 22.1
+
+### Задание 1
+CRUD для product, основанный на формах
+
+
+
+
