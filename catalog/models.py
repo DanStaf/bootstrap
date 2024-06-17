@@ -19,7 +19,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='название')
     description = models.TextField(verbose_name='описание')
-    photo = models.ImageField(null=True, verbose_name='Изображение (превью)')
+    photo = models.ImageField(null=True, blank=True, verbose_name='Изображение (превью)')
     category = models.ForeignKey(Category, null=True, verbose_name='Категория', on_delete=models.SET_NULL)
     order_price = models.PositiveIntegerField(verbose_name='Цена за покупку')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -33,6 +33,21 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, null=True, verbose_name='Продукт', on_delete=models.SET_NULL)
+    version_number = models.PositiveIntegerField(verbose_name='Номер версии')
+    version_name = models.CharField(max_length=150, verbose_name='Название версии')
+    version_is_active = models.BooleanField(default=True, verbose_name='Признак активной версии на сайте')
+
+    def __str__(self):
+        # Строковое отображение объекта
+        return f'{self.product} {self.version_number} {'+' if self.version_is_active else '-'}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
 
 
 class Contact(models.Model):

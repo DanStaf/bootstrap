@@ -5,6 +5,7 @@
     <h1 class="display-4">Skystore</h1>
     <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
         продать</p>
+    <a class="p-2 btn btn-outline-primary" href="product/create">+</a>
 </div>
 
 <div class="container">
@@ -18,6 +19,14 @@
                     <h4 class="my-0 font-weight-normal" >
                         <a href="/product/{{ object.id }}">{{ object.name }}</a>
                     </h4>
+
+                    {% for version in object.version_set.all %}
+                        {% if version.product == object and version.version_is_active == True %}
+                            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                                <li>Версия: {{ version.version_number }}</li>
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
 
                 </div>
                 <div class="card-body">
