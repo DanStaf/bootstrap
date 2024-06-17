@@ -1,6 +1,7 @@
 from django import forms
 from catalog.models import Product, Version
 
+
 class StyleFormMixin:
 
     def __init__(self, *args, **kwargs):
@@ -12,8 +13,7 @@ class StyleFormMixin:
                 field.widget.attrs['class'] = "form-control"
 
 
-
-class ProductForm(forms.ModelForm):
+class ProductForm(StyleFormMixin, forms.ModelForm):
     #  Наследуемся от специального класса форм, который предоставляет
     #  весь необходимый функционал, который нужно настроить
     class Meta:
@@ -54,7 +54,7 @@ class ProductForm(forms.ModelForm):
         return self.validate_my_text('description', 'Ошибка, связанная с описанием Продукта')
 
 
-class VersionForm(forms.ModelForm):
+class VersionForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Version  # Обязательно указываем модель
