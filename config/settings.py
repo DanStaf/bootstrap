@@ -143,8 +143,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = "danstaf@mail.ru"
-EMAIL_HOST_PASSWORD = "FKaEaWngetwX6ny6w0ZH"
+EMAIL_HOST_USER = "test@mail.ru"
+EMAIL_HOST_PASSWORD = "test"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
