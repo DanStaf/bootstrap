@@ -1,3 +1,5 @@
+from secret_data.secret_data import EMAIL_, PASSWORD_
+
 """
 Django settings for config project.
 
@@ -143,8 +145,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = "test@mail.ru"
-EMAIL_HOST_PASSWORD = "test"
+EMAIL_HOST_USER = EMAIL_
+EMAIL_HOST_PASSWORD = PASSWORD_
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
