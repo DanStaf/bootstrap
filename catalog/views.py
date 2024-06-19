@@ -9,6 +9,8 @@ from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 from django.forms import inlineformset_factory
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 
@@ -19,44 +21,17 @@ class ContactListView(ListView):
 ###
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
+    login_url = "/users/login/"
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
+    login_url = "/users/login/"
 
 
-class ProductCreateView(CreateView):
-    model = Product
-    form_class = ProductForm
-    success_url = reverse_lazy('catalog:home')
-
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        # Формирование формсета
-        ProductFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-        if self.request.method == 'POST':
-            context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
-        else:
-            context_data['formset'] = ProductFormset(instance=self.object)
-        return context_data
-
-    def form_valid(self, form):
-        context_data = self.get_context_data()
-        formset = context_data['formset']
-
-        if form.is_valid() and formset.is_valid():
-            self.object = form.save()
-            formset.instance = self.object
-            formset.save()
-            return super().form_valid(form)
-        else:
-
-            return self.render_to_response(self.get_context_data(form=form, formset=formset))
-
-
-class ProductUpdateView(UpdateView):
+class ProductCreateUpdate(CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
@@ -71,12 +46,17 @@ class ProductUpdateView(UpdateView):
             context_data['formset'] = ProductFormset(instance=self.object)
         return context_data
 
-    def form_valid(self, form):
+    def form_valid(self, form, object_is_new=True):
         context_data = self.get_context_data()
         formset = context_data['formset']
 
         if form.is_valid() and formset.is_valid():
             self.object = form.save()
+
+            if object_is_new:
+                self.object.owner = self.request.user
+                self.object.save()
+
             formset.instance = self.object
             formset.save()
             return super().form_valid(form)
@@ -85,9 +65,24 @@ class ProductUpdateView(UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(DeleteView):
+class ProductCreateView(LoginRequiredMixin, ProductCreateUpdate, CreateView):
+    login_url = "/users/login/"
+
+    def form_valid(self, form, *args):
+        return super().form_valid(form, True)
+
+
+class ProductUpdateView(LoginRequiredMixin, ProductCreateUpdate, UpdateView):
+    login_url = "/users/login/"
+
+    def form_valid(self, form, *args):
+        return super().form_valid(form, False)
+
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
+    login_url = "/users/login/"
 
 
 ###
