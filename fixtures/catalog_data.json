@@ -1,6 +1,6 @@
 ��[
 {
-"model": "catalog.category",
+"model": "catag.category",
 "pk": 56,
 "fields": {
 "name": "Фрукты",
