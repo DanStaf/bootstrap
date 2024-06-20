@@ -10,7 +10,7 @@ from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 from django.forms import inlineformset_factory
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 
 # Create your views here.
@@ -74,17 +74,29 @@ class ProductCreateView(LoginRequiredMixin, ProductCreateUpdate, CreateView):
         return super().form_valid(form, True)
 
 
-class ProductUpdateView(LoginRequiredMixin, ProductCreateUpdate, UpdateView):
+def check_user_is_owner_or_su(self):
+    pk = self.kwargs.get('pk')
+    product = get_object_or_404(Product, pk=pk)
+    return (self.request.user == product.owner) or self.request.user.is_superuser
+
+
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, ProductCreateUpdate, UpdateView):
     login_url = "/users/login/"
 
     def form_valid(self, form, *args):
         return super().form_valid(form, False)
 
+    def test_func(self):
+        return check_user_is_owner_or_su(self)
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
     login_url = "/users/login/"
+
+    def test_func(self):
+        return check_user_is_owner_or_su(self)
 
 
 @permission_required('set_published')

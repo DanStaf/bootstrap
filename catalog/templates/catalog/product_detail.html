@@ -13,8 +13,10 @@
             <a class="p-2 btn btn-outline-danger" href="/product/publish/{{ object.id }}">Снять с публикации</a>
         {% endif %}
     {% endif %}
-    <a class="p-2 btn btn-outline-primary" href="/product/update/{{ object.id }}">Edit</a>
-    <a class="p-2 btn btn-outline-primary" href="/product/delete/{{ object.id }}">Delete</a>
+    {% if object.owner == user or user.is_superuser %}
+        <a class="p-2 btn btn-outline-primary" href="/product/update/{{ object.id }}">Edit</a>
+        <a class="p-2 btn btn-outline-primary" href="/product/delete/{{ object.id }}">Delete</a>
+    {% endif %}
 
 </div>
 
