@@ -13,8 +13,9 @@
     <div class="row text-center">
 
         {% for object in object_list %}
+        {% if object.is_published or perms.catalog.set_published %}
         <div class="col-3">
-            <div class="card mb-4 box-shadow">
+            <div class="card mb-4 box-shadow {% if not object.is_published %} bg-warning {% endif %} ">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal" >
                         <a href="/product/{{ object.id }}">{{ object.name }}</a>
@@ -38,6 +39,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
 
     </div>

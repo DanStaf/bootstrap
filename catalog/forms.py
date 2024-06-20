@@ -54,6 +54,19 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         return self.validate_my_text('description', 'Ошибка, связанная с описанием Продукта')
 
 
+class ProductDescriptionForm(ProductForm):
+
+    class Meta:
+        model = Product
+        fields = ('description',)
+
+
+class ProductCategoryForm(ProductForm):
+    class Meta:
+        model = Product
+        fields = ('category',)
+
+
 class VersionForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:

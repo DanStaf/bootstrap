@@ -1,15 +1,17 @@
 import django.core.exceptions
-from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render, get_object_or_404, redirect
 # import catalog.models
 from catalog.models import Product, Contact, Article, Version
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductDescriptionForm, ProductCategoryForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 from django.forms import inlineformset_factory
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
 
 # Create your views here.
 
@@ -83,6 +85,39 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
     login_url = "/users/login/"
+
+
+@permission_required('set_published')
+def product_publish(request, pk):
+
+    product = get_object_or_404(Product, pk=pk)
+
+    if product is None:
+        return render(request, 'catalog/404.html')
+    else:
+
+        product.is_published = False if product.is_published else True
+        product.save()
+
+        return redirect('catalog:home')
+
+
+class ProductDescriptionUpdateView(PermissionRequiredMixin, ProductUpdateView):
+    login_url = "/users/login/"
+    permission_required = 'blog.add_post'
+    form_class = ProductDescriptionForm
+
+    def get_success_url(self):
+        return reverse('catalog:product', args=[self.kwargs.get('pk')])
+
+
+class ProductCategoryUpdateView(PermissionRequiredMixin, ProductUpdateView):
+    login_url = "/users/login/"
+    permission_required = 'blog.add_post'
+    form_class = ProductCategoryForm
+
+    def get_success_url(self):
+        return reverse('catalog:product', args=[self.kwargs.get('pk')]) # self.object.pk
 
 
 ###
