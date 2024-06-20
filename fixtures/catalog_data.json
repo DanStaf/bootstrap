@@ -1,4 +1,4 @@
-��[
+[
 {
 "model": "catalog.category",
 "pk": 56,
@@ -36,12 +36,13 @@
 "pk": 58,
 "fields": {
 "name": "Яблоки",
-"description": "Красные",
+"description": "Красные очень",
 "photo": "apples.jpg",
 "category": 56,
 "order_price": 100,
 "created_at": "2024-05-17T13:04:44.412Z",
-"updated_at": "2024-05-17T13:04:44.412Z"
+"updated_at": "2024-06-19T18:20:26.557Z",
+"owner": null
 }
 },
 {
@@ -49,12 +50,13 @@
 "pk": 59,
 "fields": {
 "name": "Апельсины",
-"description": "Марокко",
+"description": "Марокко очень сладкие",
 "photo": "",
-"category": null,
+"category": 56,
 "order_price": 150,
 "created_at": "2024-05-17T13:04:44.412Z",
-"updated_at": "2024-05-17T13:04:44.412Z"
+"updated_at": "2024-06-19T18:20:49.781Z",
+"owner": null
 }
 },
 {
@@ -64,10 +66,11 @@
 "name": "Бананы",
 "description": "Африка",
 "photo": "",
-"category": null,
+"category": 56,
 "order_price": 120,
 "created_at": "2024-05-17T13:04:44.412Z",
-"updated_at": "2024-05-17T13:04:44.412Z"
+"updated_at": "2024-06-19T18:26:16.591Z",
+"owner": 1
 }
 },
 {
@@ -77,10 +80,11 @@
 "name": "Телевизор",
 "description": "100 дюймов",
 "photo": "",
-"category": null,
+"category": 58,
 "order_price": 100000,
 "created_at": "2024-05-17T13:04:44.412Z",
-"updated_at": "2024-05-17T13:04:44.412Z"
+"updated_at": "2024-06-19T18:39:44.341Z",
+"owner": null
 }
 },
 {
@@ -90,10 +94,11 @@
 "name": "Смартфон",
 "description": "Samsung",
 "photo": "",
-"category": null,
+"category": 58,
 "order_price": 20000,
 "created_at": "2024-05-17T13:04:44.412Z",
-"updated_at": "2024-05-17T13:04:44.412Z"
+"updated_at": "2024-06-19T18:26:27.990Z",
+"owner": 1
 }
 },
 {
@@ -101,12 +106,13 @@
 "pk": 63,
 "fields": {
 "name": "Помидоры",
-"description": "Красные",
+"description": "Красные большие круглые",
 "photo": "",
-"category": null,
+"category": 57,
 "order_price": 300,
 "created_at": "2024-05-17T13:04:44.412Z",
-"updated_at": "2024-05-17T13:04:44.412Z"
+"updated_at": "2024-06-19T18:35:51.842Z",
+"owner": null
 }
 },
 {
@@ -117,9 +123,38 @@
 "description": "круглый",
 "photo": "",
 "category": 59,
-"order_price": 400,
+"order_price": 500,
 "created_at": "2024-06-17T19:09:07.262Z",
-"updated_at": "2024-06-17T19:09:07.262Z"
+"updated_at": "2024-06-19T18:21:29.014Z",
+"owner": null
+}
+},
+{
+"model": "catalog.product",
+"pk": 66,
+"fields": {
+"name": "Кукла",
+"description": "Говорящая",
+"photo": "",
+"category": 59,
+"order_price": 4000,
+"created_at": "2024-06-19T18:22:02.418Z",
+"updated_at": "2024-06-19T18:22:02.421Z",
+"owner": null
+}
+},
+{
+"model": "catalog.product",
+"pk": 67,
+"fields": {
+"name": "Огурцы",
+"description": "с пупырышками",
+"photo": "",
+"category": 57,
+"order_price": 100,
+"created_at": "2024-06-19T18:36:22.775Z",
+"updated_at": "2024-06-19T18:36:22.781Z",
+"owner": 1
 }
 },
 {
