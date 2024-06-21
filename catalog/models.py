@@ -1,8 +1,6 @@
 from django.db import models
 from users.models import User
 
-# Create your models here.
-
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='название')

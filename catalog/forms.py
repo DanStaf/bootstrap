@@ -20,11 +20,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         model = Product
         exclude = ('owner',)
 
-        """fields = '__all__'  # Использование всех полей модели
-        fields = ('first_name',)  # Использование только перечисленных полей
-        exclude = ('last_name',)  # Использование всех полей, кроме перечисленных
-        # Описан может быть только один из вариантов"""
-
     def validate_my_text(self, field_name, error_text):
 
         forbidden_words = [

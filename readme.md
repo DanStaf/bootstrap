@@ -1,18 +1,12 @@
-# ДЗ по Bootstrap
-
-## 19.1 
-
-Задание 1 - внести изменения в index.html
-
-Задание 2 - app.py на любой GET запрос запускает index.html
-
 # ДЗ по Django
 
 ## 19.2
 
 ### Задание 1
 создано окружение и джанго проект
-
+- poetry add django==4.2
+- django-admin startproject config .
+- 
 ### Задание 2
 - Создайте первое приложение с названием catalog (команда python manage.py startapp catalog)
 - Внесите начальные настройки проекта.
