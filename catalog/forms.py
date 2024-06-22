@@ -20,11 +20,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         model = Product
         exclude = ('owner',)
 
-        """fields = '__all__'  # Использование всех полей модели
-        fields = ('first_name',)  # Использование только перечисленных полей
-        exclude = ('last_name',)  # Использование всех полей, кроме перечисленных
-        # Описан может быть только один из вариантов"""
-
     def validate_my_text(self, field_name, error_text):
 
         forbidden_words = [
@@ -52,6 +47,19 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_description(self):
         return self.validate_my_text('description', 'Ошибка, связанная с описанием Продукта')
+
+
+class ProductDescriptionForm(ProductForm):
+
+    class Meta:
+        model = Product
+        fields = ('description',)
+
+
+class ProductCategoryForm(ProductForm):
+    class Meta:
+        model = Product
+        fields = ('category',)
 
 
 class VersionForm(StyleFormMixin, forms.ModelForm):

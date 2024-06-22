@@ -1,8 +1,6 @@
 from django.db import models
 from users.models import User
 
-# Create your models here.
-
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='название')
@@ -29,6 +27,8 @@ class Product(models.Model):
 
     owner = models.ForeignKey(User, null=True, blank=True, verbose_name='Владелец', on_delete=models.SET_NULL)
 
+    is_published = models.BooleanField(default=False, verbose_name='Признак публикации')
+
 
     def __str__(self):
         # Строковое отображение объекта
@@ -37,6 +37,21 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+
+        permissions = [
+            (
+                'set_published',
+                'Can publish posts'
+            ),
+            (
+                'change_description',
+                'Can change description'
+            ),
+            (
+                'change_category',
+                'Can change category'
+            )
+        ]
 
 
 class Version(models.Model):

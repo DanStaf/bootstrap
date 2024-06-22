@@ -1,17 +1,16 @@
 import django.core.exceptions
-from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render, get_object_or_404, redirect
 # import catalog.models
 from catalog.models import Product, Contact, Article, Version
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductDescriptionForm, ProductCategoryForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 from django.forms import inlineformset_factory
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-# Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 
 class ContactListView(ListView):
@@ -72,17 +71,68 @@ class ProductCreateView(LoginRequiredMixin, ProductCreateUpdate, CreateView):
         return super().form_valid(form, True)
 
 
-class ProductUpdateView(LoginRequiredMixin, ProductCreateUpdate, UpdateView):
+def check_user_is_owner_or_su(self):
+    pk = self.kwargs.get('pk')
+    product = get_object_or_404(Product, pk=pk)
+    return (self.request.user == product.owner) or self.request.user.is_superuser
+
+
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, ProductCreateUpdate, UpdateView):
     login_url = "/users/login/"
 
     def form_valid(self, form, *args):
         return super().form_valid(form, False)
 
+    def test_func(self):
+        return check_user_is_owner_or_su(self)
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
     login_url = "/users/login/"
+
+    def test_func(self):
+        return check_user_is_owner_or_su(self)
+
+
+@permission_required('set_published')
+def product_publish(request, pk):
+
+    product = get_object_or_404(Product, pk=pk)
+
+    if product is None:
+        return render(request, 'catalog/404.html')
+    else:
+
+        product.is_published = False if product.is_published else True
+        product.save()
+
+        return redirect('catalog:home')
+
+
+class ProductDescriptionUpdateView(PermissionRequiredMixin, ProductUpdateView):
+    login_url = "/users/login/"
+    permission_required = 'change_description'
+    form_class = ProductDescriptionForm
+
+    def get_success_url(self):
+        return reverse('catalog:product', args=[self.kwargs.get('pk')])
+
+    def test_func(self):
+        return True
+
+
+class ProductCategoryUpdateView(PermissionRequiredMixin, ProductUpdateView):
+    login_url = "/users/login/"
+    permission_required = 'change_category'
+    form_class = ProductCategoryForm
+
+    def get_success_url(self):
+        return reverse('catalog:product', args=[self.kwargs.get('pk')])
+
+    def test_func(self):
+        return True
 
 
 ###
@@ -149,54 +199,3 @@ class ArticleDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:blog')
 
 ###########
-
-"""# FBV ProductListView
-
-def home(request):
-    list_of_products = Product.objects.all()
-    a = 5 if len(list_of_products) >= 5 else len(list_of_products)
-    [print(item) for item in list_of_products[:a]]
-
-    # [print(item.pk) for item in Product.objects.all()]
-
-    data = {"object_list": list_of_products}
-
-    return render(request, 'catalog/product_list.html', context=data)"""
-
-
-
-"""# FBV ProductDetailView
-
-def product(request, pk):
-
-    product = get_object_or_None(Product, pk)  # PrimaryKey (= 19, 20 ... 24)
-
-    if product is None:
-        return render(request, 'catalog/404.html')
-    else:
-
-        data = {"object": product}
-        return render(request, 'catalog/product_detail.html', context=data)
-
-
-def get_object_or_None(My_Model, pk):
-
-    try:
-        return My_Model.objects.get(pk=pk)
-    except django.core.exceptions.ObjectDoesNotExist:
-        return None
-"""
-
-
-"""# FBV ContactListView
-
-def contacts(request):
-
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        print('INPUT DATA: ', name)
-
-    our_contacts = Contact.objects.all()
-    data = {"object_list": our_contacts}
-
-    return render(request, 'catalog/contact_list.html', context=data)"""

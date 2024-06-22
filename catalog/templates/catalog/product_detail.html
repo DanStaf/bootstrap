@@ -5,9 +5,18 @@
 {% block content %}
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Продукт: {{ object.name }}</h1>
-    <a class="p-2 btn btn-outline-primary" href="/product/update/{{ object.id }}">Edit</a>
-    <a class="p-2 btn btn-outline-primary" href="/product/delete/{{ object.id }}">Delete</a>
+    <h1 class="display-4 {% if not object.is_published %} bg-warning {% endif %}">Продукт: {{ object.name }}</h1>
+    {% if perms.catalog.set_published %}
+        {% if not object.is_published %}
+            <a class="p-2 btn btn-outline-success" href="/product/publish/{{ object.id }}">Опубликовать</a>
+        {% else %}
+            <a class="p-2 btn btn-outline-danger" href="/product/publish/{{ object.id }}">Снять с публикации</a>
+        {% endif %}
+    {% endif %}
+    {% if object.owner == user or user.is_superuser %}
+        <a class="p-2 btn btn-outline-primary" href="/product/update/{{ object.id }}">Edit</a>
+        <a class="p-2 btn btn-outline-primary" href="/product/delete/{{ object.id }}">Delete</a>
+    {% endif %}
 
 </div>
 
@@ -23,7 +32,13 @@
                         </tr>
                         <tr>
                             <td class="w-25">Описание</td>
-                            <td>{{object.description}}</td>
+                            <td>
+                                {{object.description}}
+                                {% if perms.catalog.change_description %}
+                                    <a class="p-2 btn btn-outline-success" href="/product/change_description/{{ object.id }}">Изменить</a>
+                                {% endif %}
+                            </td>
+
                         </tr>
                         <tr>
                             <td class="w-25">Изображение (превью)</td>
@@ -35,7 +50,13 @@
                         </tr>
                         <tr>
                             <td class="w-25">Категория</td>
-                            <td>{{object.category}}</td>
+                            <td>
+                                {{object.category}}
+                                {% if perms.catalog.change_category %}
+                                    <a class="p-2 btn btn-outline-success" href="/product/change_category/{{ object.id }}">Изменить</a>
+                                {% endif %}
+                            </td>
+
                         </tr>
                         <tr>
                             <td class="w-25">Цена за покупку</td>
