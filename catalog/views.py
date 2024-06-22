@@ -113,20 +113,26 @@ def product_publish(request, pk):
 
 class ProductDescriptionUpdateView(PermissionRequiredMixin, ProductUpdateView):
     login_url = "/users/login/"
-    permission_required = 'blog.add_post'
+    permission_required = 'change_description'
     form_class = ProductDescriptionForm
 
     def get_success_url(self):
         return reverse('catalog:product', args=[self.kwargs.get('pk')])
 
+    def test_func(self):
+        return True
+
 
 class ProductCategoryUpdateView(PermissionRequiredMixin, ProductUpdateView):
     login_url = "/users/login/"
-    permission_required = 'blog.add_post'
+    permission_required = 'change_category'
     form_class = ProductCategoryForm
 
     def get_success_url(self):
-        return reverse('catalog:product', args=[self.kwargs.get('pk')]) # self.object.pk
+        return reverse('catalog:product', args=[self.kwargs.get('pk')])
+
+    def test_func(self):
+        return True
 
 
 ###
