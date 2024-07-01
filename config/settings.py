@@ -154,3 +154,8 @@ if CACHE_ENABLED:
             "TIMEOUT": os.getenv('CACHES_TIMEOUT')
         }
     }
+
+    MIDDLEWARE = [
+        "django.middleware.cache.UpdateCacheMiddleware",
+        "django.middleware.cache.FetchFromCacheMiddleware"
+    ]
