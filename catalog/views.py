@@ -2,7 +2,7 @@ import django.core.exceptions
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 # import catalog.models
-from catalog.models import Product, Contact, Article, Version
+from catalog.models import Product, Contact, Article, Version, Category
 from catalog.forms import ProductForm, VersionForm, ProductDescriptionForm, ProductCategoryForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -12,9 +12,22 @@ from django.forms import inlineformset_factory
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
+from catalog.services import get_category_list
+
 
 class ContactListView(ListView):
     model = Contact
+
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+    login_url = "/users/login/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ...
+        context['object_list'] = get_category_list()
+        return context
 
 
 ###
